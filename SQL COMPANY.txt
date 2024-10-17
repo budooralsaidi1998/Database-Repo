@@ -1,0 +1,76 @@
+create database company
+
+use company
+
+create table employee 
+(
+  fname varchar(20) not null,
+  mimit varchar(20) not null,
+   lname  varchar(20) not null,
+    ssn int ,
+	bdate date ,
+	  address varchar(20) not null,
+	   sex varchar(20) not null,
+	    salary float(20)  ,
+		 super_ssn  int not null,
+		  Dno int 
+)
+
+ALTER TABLE employee 
+DROP COLUMN ssn ;
+
+
+ALTER TABLE employee 
+ADD ssn int PRIMARY KEY 
+create table department 
+(
+  dname varchar(20) not null,
+  dnumber int ,
+   mgr_ssn  int,
+   
+	mgrdate date 
+)
+
+create table dep_location 
+(
+ 
+  dnumber int ,
+   dlocation varchar(20)
+   
+
+)
+
+
+create table project 
+(
+  pname varchar(20) not null,
+  pnumber int ,
+   plocation  varchar(50),
+   
+	dnum int 
+)
+
+create table work_on 
+(
+ 
+  essn int ,
+   pno int,
+   Hours_WORK int 
+   
+
+)
+
+create table dependents 
+(
+ 
+  essn int ,
+ depemdent_name varchar(20),
+ sex varchar(20),
+
+   Hours_WORK int ,
+   	bdate date ,
+	relationship varchar(20)
+)
+
+ALTER TABLE department 
+ADD FOREIGN KEY (mgr_ssn) REFERENCES employee (ssn)
