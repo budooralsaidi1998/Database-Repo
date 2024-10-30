@@ -12,19 +12,21 @@ create table hotel
     CONSTRAINT chk_rating CHECK (rate_hotel BETWEEN 1 AND 5)
 
 )
+
+
+
 --room
 create table room
 (
-     Rid INT IDENTITY PRIMARY KEY,
+    rnum  INT IDENTITY PRIMARY KEY,
     hid INT NOT NULL,
-    rnum VARCHAR(10) NOT NULL,
     room_type VARCHAR(20) NOT NULL,
     room_price DECIMAL(10, 2) NOT NULL,
     is_available BIT NOT NULL DEFAULT 1,
     CONSTRAINT uq_room_number UNIQUE (hid, rnum),
     CONSTRAINT chk_room_type CHECK (room_type IN ('Single', 'Double', 'Suite')),
     CONSTRAINT chk_price CHECK (room_price > 0),
-    FOREIGN KEY (hid) REFERENCES Hotel(hid) 
+    FOREIGN KEY (hid) REFERENCES hotel (hid) 
          ON DELETE CASCADE 
         ON UPDATE CASCADE
 )
@@ -40,11 +42,12 @@ CREATE TABLE Guest (
     CONSTRAINT uq_id_proof UNIQUE (Gtype, id_proof)
 )
 
+
 --Booking
 CREATE TABLE Booking (
     bid INT IDENTITY PRIMARY KEY,
     guest_id INT NOT NULL,
-    room_id INT NOT NULL,
+    room_number INT NOT NULL,
     booking_date DATE NOT NULL,
     check_in DATE NOT NULL,
     check_out DATE NOT NULL,
@@ -55,7 +58,7 @@ CREATE TABLE Booking (
     FOREIGN KEY (guest_id) REFERENCES Guest(gid) 
         ON DELETE CASCADE 
         ON UPDATE CASCADE,
-    FOREIGN KEY (room_id) REFERENCES Room(rid) 
+    FOREIGN KEY (room_number) REFERENCES Room(rnum) 
         ON DELETE CASCADE 
         ON UPDATE CASCADE
 )
